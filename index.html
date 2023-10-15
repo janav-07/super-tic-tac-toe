@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Super-Tic-Tac-Toe</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div class="mainContainer">
+		<div class="centerAlign">
+			<h1 class="center">Super Tic Tac Toe!</h1>
+			<h2 class="center" id="nextPlayer">Next Player: X</h2>
+			<h2 class="center">How to Play</h2>
+			<p class="center instructions">Super Tic Tac Toe is played like a bigger version of Tic Tac Toe. However, there's a twist. The board is made up of 9 3x3 areas, so there are sections and subsections. The subsection that your opponent goes in dictates which section you are allowed to play in. For example, if your opponent plays in the middle subsection of the upper-left section, your next move must be one of the subsections of the middle section. Once someone wins a section, that section is owned by them. If your next move is supposed to be in a section that has already been owned, you are allowed to go anywhere on the board. To win, own 3 sections in a row!</p>
+			<h2 class="center" id="winner"></h2>
+			<button class="invisible" id="resetButton" onclick="reload()">Play Again?</button>
+			<p class="center sideMargins" id="copyCode"></p>
+			<button class="invisible" id="copyButton" onclick="copy()">Copy</button>
+			<input type="text" id="boardInput" class="inputStyle">
+			<button class="center" id="setBoard" onclick="setBoard(document.getElementById('boardInput').value)">Load Game</button>
+			<button class="invisible topMargin" id="undo" onclick="undo()">Undo</button>
+		</div>
+		
+		<div id="gameBoard">
+			<div class="center">
+				<table class="all-boxes">
+					<tr>
+						<td class="top-left thick" id="tl">
+							<table class="all-boxes spacing">
+								<tr>
+									<td class="top-left spacing" onclick="action('tl', 'tl')" id="tl-tl"></td>
+									<td class="top-middle spacing" onclick="action('tl', 'tm')" id="tl-tm"></td>
+									<td class="top-right spacing" onclick="action('tl', 'tr')" id="tl-tr"></td>
+								</tr>
+								<tr>
+									<td class="middle-left spacing" onclick="action('tl', 'ml')" id="tl-ml"></td>
+									<td class="middle-middle spacing" onclick="action('tl', 'mm')" id="tl-mm"></td>
+									<td class="middle-right spacing" onclick="action('tl', 'mr')" id="tl-mr"></td>
+								</tr>
+								<tr>
+									<td class="bottom-left spacing" onclick="action('tl', 'bl')" id="tl-bl"></td>
+									<td class="bottom-middle spacing" onclick="action('tl', 'bm')" id="tl-bm"></td>
+									<td class="bottom-right spacing" onclick="action('tl', 'br')" id="tl-br"></td>
+								</tr>
+							</table>
+						</td>
+						
+						<td class="top-middle thick" id="tm">
+							<table class="all-boxes spacing">
+								<tr>
+									<td class="top-left spacing" onclick="action('tm', 'tl')" id="tm-tl"></td>
+									<td class="top-middle spacing" onclick="action('tm', 'tm')" id="tm-tm"></td>
+									<td class="top-right spacing" onclick="action('tm', 'tr')" id="tm-tr"></td>
+								</tr>
+								<tr>
+									<td class="middle-left spacing" onclick="action('tm', 'ml')" id="tm-ml"></td>
+									<td class="middle-middle spacing" onclick="action('tm', 'mm')" id="tm-mm"></td>
+									<td class="middle-right spacing" onclick="action('tm', 'mr')" id="tm-mr"></td>
+								</tr>
+								<tr>
+									<td class="bottom-left spacing" onclick="action('tm', 'bl')" id="tm-bl"></td>
+									<td class="bottom-middle spacing" onclick="action('tm', 'bm')" id="tm-bm"></td>
+									<td class="bottom-right spacing" onclick="action('tm', 'br')" id="tm-br"></td>
+								</tr>
+							</table>
+						</td>
+						
+						<td class="top-right thick" id="tr">
+							<table class="all-boxes spacing">
+								<tr>
+									<td class="top-left spacing" onclick="action('tr', 'tl')" id="tr-tl"></td>
+									<td class="top-middle spacing" onclick="action('tr', 'tm')" id="tr-tm"></td>
+									<td class="top-right spacing" onclick="action('tr', 'tr')" id="tr-tr"></td>
+								</tr>
+								<tr>
+									<td class="middle-left spacing" onclick="action('tr', 'ml')" id="tr-ml"></td>
+									<td class="middle-middle spacing" onclick="action('tr', 'mm')" id="tr-mm"></td>
+									<td class="middle-right spacing" onclick="action('tr', 'mr')" id="tr-mr"></td>
+								</tr>
+								<tr>
+									<td class="bottom-left spacing" onclick="action('tr', 'bl')" id="tr-bl"></td>
+									<td class="bottom-middle spacing" onclick="action('tr', 'bm')" id="tr-bm"></td>
+									<td class="bottom-right spacing" onclick="action('tr', 'br')" id="tr-br"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="middle-left thick" id="ml">
+							<table class="all-boxes spacing">
+								<tr>
+									<td class="top-left spacing" onclick="action('ml', 'tl')" id="ml-tl"></td>
+									<td class="top-middle spacing" onclick="action('ml', 'tm')" id="ml-tm"></td>
+									<td class="top-right spacing" onclick="action('ml', 'tr')" id="ml-tr"></td>
+								</tr>
+								<tr>
+									<td class="middle-left spacing" onclick="action('ml', 'ml')" id="ml-ml"></td>
+									<td class="middle-middle spacing" onclick="action('ml', 'mm')" id="ml-mm"></td>
+									<td class="middle-right spacing" onclick="action('ml', 'mr')" id="ml-mr"></td>
+								</tr>
+								<tr>
+									<td class="bottom-left spacing" onclick="action('ml', 'bl')" id="ml-bl"></td>
+									<td class="bottom-middle spacing" onclick="action('ml', 'bm')" id="ml-bm"></td>
+									<td class="bottom-right spacing" onclick="action('ml', 'br')" id="ml-br"></td>
+								</tr>
+							</table>
+						</td>
+						
+						<td class="middle-middle thick" id="mm">
+							<table class="all-boxes spacing">
+								<tr>
+									<td class="top-left spacing" onclick="action('mm', 'tl')" id="mm-tl"></td>
+									<td class="top-middle spacing" onclick="action('mm', 'tm')" id="mm-tm"></td>
+									<td class="top-right spacing" onclick="action('mm', 'tr')" id="mm-tr"></td>
+								</tr>
+								<tr>
+									<td class="middle-left spacing" onclick="action('mm', 'ml')" id="mm-ml"></td>
+									<td class="middle-middle spacing" onclick="action('mm', 'mm')" id="mm-mm"></td>
+									<td class="middle-right spacing" onclick="action('mm', 'mr')" id="mm-mr"></td>
+								</tr>
+								<tr>
+									<td class="bottom-left spacing" onclick="action('mm', 'bl')" id="mm-bl"></td>
+									<td class="bottom-middle spacing" onclick="action('mm', 'bm')" id="mm-bm"></td>
+									<td class="bottom-right spacing" onclick="action('mm', 'br')" id="mm-br"></td>
+								</tr>
+							</table>
+						</td>
+						
+						<td class="middle-right thick" id="mr">
+							<table class="all-boxes spacing">
+								<tr>
+									<td class="top-left spacing" onclick="action('mr', 'tl')" id="mr-tl"></td>
+									<td class="top-middle spacing" onclick="action('mr', 'tm')" id="mr-tm"></td>
+									<td class="top-right spacing" onclick="action('mr', 'tr')" id="mr-tr"></td>
+								</tr>
+								<tr>
+									<td class="middle-left spacing" onclick="action('mr', 'ml')" id="mr-ml"></td>
+									<td class="middle-middle spacing" onclick="action('mr', 'mm')" id="mr-mm"></td>
+									<td class="middle-right spacing" onclick="action('mr', 'mr')" id="mr-mr"></td>
+								</tr>
+								<tr>
+									<td class="bottom-left spacing" onclick="action('mr', 'bl')" id="mr-bl"></td>
+									<td class="bottom-middle spacing" onclick="action('mr', 'bm')" id="mr-bm"></td>
+									<td class="bottom-right spacing" onclick="action('mr', 'br')" id="mr-br"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="bottom-left thick" id="bl">
+							<table class="all-boxes spacing">
+								<tr>
+									<td class="top-left spacing" onclick="action('bl', 'tl')" id="bl-tl"></td>
+									<td class="top-middle spacing" onclick="action('bl', 'tm')" id="bl-tm"></td>
+									<td class="top-right spacing" onclick="action('bl', 'tr')" id="bl-tr"></td>
+								</tr>
+								<tr>
+									<td class="middle-left spacing" onclick="action('bl', 'ml')" id="bl-ml"></td>
+									<td class="middle-middle spacing" onclick="action('bl', 'mm')" id="bl-mm"></td>
+									<td class="middle-right spacing" onclick="action('bl', 'mr')" id="bl-mr"></td>
+								</tr>
+								<tr>
+									<td class="bottom-left spacing" onclick="action('bl', 'bl')" id="bl-bl"></td>
+									<td class="bottom-middle spacing" onclick="action('bl', 'bm')" id="bl-bm"></td>
+									<td class="bottom-right spacing" onclick="action('bl', 'br')" id="bl-br"></td>
+								</tr>
+							</table>
+						</td>
+						
+						<td class="bottom-middle thick" id="bm">
+							<table class="all-boxes spacing">
+								<tr>
+									<td class="top-left spacing" onclick="action('bm', 'tl')" id="bm-tl"></td>
+									<td class="top-middle spacing" onclick="action('bm', 'tm')" id="bm-tm"></td>
+									<td class="top-right spacing" onclick="action('bm', 'tr')" id="bm-tr"></td>
+								</tr>
+								<tr>
+									<td class="middle-left spacing" onclick="action('bm', 'ml')" id="bm-ml"></td>
+									<td class="middle-middle spacing" onclick="action('bm', 'mm')" id="bm-mm"></td>
+									<td class="middle-right spacing" onclick="action('bm', 'mr')" id="bm-mr"></td>
+								</tr>
+								<tr>
+									<td class="bottom-left spacing" onclick="action('bm', 'bl')" id="bm-bl"></td>
+									<td class="bottom-middle spacing" onclick="action('bm', 'bm')" id="bm-bm"></td>
+									<td class="bottom-right spacing" onclick="action('bm', 'br')" id="bm-br"></td>
+								</tr>
+							</table>
+						</td>
+						
+						<td class="bottom-right thick" id="br">
+							<table class="all-boxes spacing">
+								<tr>
+									<td class="top-left spacing" onclick="action('br', 'tl')" id="br-tl"></td>
+									<td class="top-middle spacing" onclick="action('br', 'tm')" id="br-tm"></td>
+									<td class="top-right spacing" onclick="action('br', 'tr')" id="br-tr"></td>
+								</tr>
+								<tr>
+									<td class="middle-left spacing" onclick="action('br', 'ml')" id="br-ml"></td>
+									<td class="middle-middle spacing" onclick="action('br', 'mm')" id="br-mm"></td>
+									<td class="middle-right spacing" onclick="action('br', 'mr')" id="br-mr"></td>
+								</tr>
+								<tr>
+									<td class="bottom-left spacing" onclick="action('br', 'bl')" id="br-bl"></td>
+									<td class="bottom-middle spacing" onclick="action('br', 'bm')" id="br-bm"></td>
+									<td class="bottom-right spacing" onclick="action('br', 'br')" id="br-br"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		<p></p>
+	</div>
+
+	<div class="footer1">
+		<p></p>
+	</div>
+	<script src="script.js"></script>
+</body>
+</html>
